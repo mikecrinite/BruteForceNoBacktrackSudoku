@@ -45,3 +45,10 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+#idea
+out/
+*/out
+.idea/
+*/.idea/
+BruteForceNoBacktrackSudoku.iml
