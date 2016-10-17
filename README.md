@@ -40,7 +40,7 @@ If you are looking for a pure brute-force solver, this one is available for your
 The /src folder contains the solver, and the root folder contains various Sudoku puzzles in .txt format
 
 -------------------------------------------------------------
-- The Input class was written by Jacob Caggese              *
+- The Input class was written by Jacob Caggese              
 - The Filler class was written by me, Michael Crinite       
 - The Checker class was written by Alexander Luongo         
 - The SudokuDriver class was written by me, Michael Crinite 
