@@ -1,18 +1,12 @@
-import java.util.ArrayList;
-
 /**
  * This class will attempt to fill a Sudoku puzzle with a solution.
  * 
- * Utilizing a recursive call to the fillBoard() method, it will try every
- * possible solution in each square. If at any point,it expends all possible 
- * values of any individual square, it will return false all the way down.
- * 
- * If it reaches the end of the board, having filled all previous spaces, it
- * will replace the field puzzle with the solved puzzle, which can then be
- * printed by calling the printAllRows() method.
+ * The solve algorithm first attempts to put a 1 in every blank space. It then increments the first
+ * of these until it cannot increment anymore. If none of those assignments satisfied the Checker, it will then
+ * increment the second blank by 1 and try again.
  * 
  * @author Michael Crinite
- * @version 09.24.2016
+ * @version 10.16.2016
  */
 public class Filler {
     int[][] puzzle;             // The inputted puzzle
@@ -44,6 +38,14 @@ public class Filler {
 
     }
 
+    /**
+     * This method tries every possible assignment by incrementing one space at a time. For example, if there are
+     * three blanks and the puzzle width is 4, it will try:
+     * 111, 211, 311, 411, 121, 221, 321, 421, 131, 231, 331, 431, 141, 241, 341, 441, 112, 212, 312, 412, ... 444
+     *
+     * If 444 is not a solution, it will return false.
+     * @return True is the current assignments are verified as a solution. False if there is no solution.
+     */
     public boolean solve() {
         //First, find every zero in the puzzle and store true in its place in a 2D array of booleans.
 
