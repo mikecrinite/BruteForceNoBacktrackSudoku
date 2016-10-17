@@ -1,9 +1,12 @@
 # BruteForceNoBacktrackSudoku
 
 This is a brute force Sudoku solver, created for a Design and Analysis of Algorithms class. It is written entirely in Java.
+
 While most brute force solvers also utilize backtracking, this one does not.
+
 This solver identifies each '0' in the Sudoku puzzle ('0's represent blanks) and attempts to increment them one at a time
 until a solution is found or it is confirmed that no solution is possible.
+
 For example, if there are 4 blanks in a 2x2 puzzle, it will try to solve as follows:
 ```
   1 1 1 1
