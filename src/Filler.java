@@ -27,26 +27,6 @@ public class Filler {
 
     Checker checker = new Checker();
 
-
-
-    /**
-     * Driver method.
-     * Utilizes test methods to test a default puzzle for solutions.
-     *
-     * @param args Default main method arguments
-     */
-    public static void main(String args[]) {
-
-        final long startTime = System.currentTimeMillis();//Take start time
-
-        Filler filler = new Filler(Filler.testPuzzle(), 2, 3);
-        filler.solve();
-        filler.printAllRows();
-
-        final long endTime = System.currentTimeMillis();  //Take end time
-        System.out.println("Execution time: " + (endTime - startTime) + " ms");
-    }
-
     /**
      * Constructor for type SudokuFiller
      * Creates a puzzle board from a passed-in argument of type 2D array
@@ -80,16 +60,15 @@ public class Filler {
         }
 
         boolean solved = false;
-        while (!solved) {
+        while (!solved) { //Technically an infinite loop, but the returns should eventually break the loop
             //Third, increment the first empty if possible, if not increment the next empty
             increment();
 
             //Check if it solved the entire puzzle or not
             if(isSolved()){
                 System.out.println("Solution: ");
-                return true;                   //Didn't work, try again.
-            }else if(puzzle[lastX][lastY]==(width)){
-                System.out.println("This puzzle has no solution");
+                return true;
+            }else if(puzzle[lastX][lastY] == width){
                 return false;
             }
         }
@@ -104,18 +83,21 @@ public class Filler {
      * @return True if no row, column, or box is invalid. False if any is invalid.
      */
     private boolean isSolved(){
+        //Check rows
         for(int i = 0; i < puzzle.length; i++){
             if(!checker.checkRow(puzzle[i])){
                 return false;
             }
         }
 
+        //Check columns
         for(int j = 0; j < puzzle.length; j++){
             if(!checker.checkRow(columnToArray(puzzle, j))){
                 return false;
             }
         }
 
+        //Check boxes
         for(int row = 0; row < puzzle.length; row = (row + rSize)){
             for(int col = 0; col < puzzle[row].length; col = (col + cSize)){
                 if(!checker.checkBox(puzzle, col, row, rSize, cSize)){
@@ -153,7 +135,6 @@ public class Filler {
      * @return True if the space is successfully incremented. False if no space can be incremented.
      */
     private boolean increment(){
-        //Find the first that CAN be incremented, increment it
         for(int i = 0; i < puzzle.length; i++){
             for(int j = 0; j < puzzle[i].length; j++){
                 if(empties[i][j]){
@@ -226,7 +207,7 @@ public class Filler {
     }
     
     /**
-     * Creates a smaller fake puzzle
+     * Creates a smaller test puzzle
      * @return A solvable 4v4 puzzle
      */
     private static int[][] testPuzzle2(){
