@@ -52,3 +52,5 @@ out/
 .idea/
 */.idea/
 BruteForceNoBacktrackSudoku.iml
+
+*.txt

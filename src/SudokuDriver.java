@@ -13,11 +13,11 @@ public class SudokuDriver {
 
             if(args.length > 0){
                 File file = new File(args[0]);
-                //File file = new File("C:\\Users\\Mike\\IdeaProjects\\BruteForceNoBacktrackSudoku\\empty.txt");
                 Input input = new Input(file);
                 Filler filler = new Filler(input.getGrid(), 
                                             input.getH(), 
                                             input.getW());
+
                 //Checker is created within the Filler object
                 if(!filler.solve()){
                     System.out.println("This puzzle has no valid solution.");
@@ -32,7 +32,6 @@ public class SudokuDriver {
             System.out.println("Execution time: " + (endTime - startTime) + " ms");
         }catch(Exception e){
             System.out.println("SudokuSolver cannot read that file.");
-            //e.printStackTrace();
         }
         
     }
