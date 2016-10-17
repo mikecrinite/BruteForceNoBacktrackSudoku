@@ -22,6 +22,9 @@ public class Filler {
     int cSize;                  // The amount of columns in one block
     int rSize;                  // The amount of rows in one block
 
+    int lastX;                  // Location of the final empty space (row)
+    int lastY;                  // Location of the final empty space (column)
+
     Checker checker = new Checker();
 
 
@@ -61,13 +64,15 @@ public class Filler {
 
     }
 
-    public void solve() {
+    public boolean solve() {
         //First, find every zero in the puzzle and store true in its place in a 2D array of booleans.
 
         for (int i = 0; i < puzzle.length; i++) {
             for (int j = 0; j < puzzle[i].length; j++) {
                 if (puzzle[i][j] == 0) {
                     empties[i][j] = true;
+                    lastX = i;
+                    lastY = j;
                     //Second, fill every zero with a one
                     puzzle[i][j] = 1;
                 }
@@ -77,41 +82,28 @@ public class Filler {
         boolean solved = false;
         while (!solved) {
             //Third, increment the first empty if possible, if not increment the next empty
-            outerloop:
-            for (int i = 0; i < puzzle.length; i++) {         //for each row
-                for (int j = 0; j < puzzle[i].length; j++) {  //for each column
-                    if (empties[i][j]) {                     //if the space was an empty
-                        if (canIncrement(puzzle[i][j])) {    //If you can increment it, do so
-                           puzzle[i][j]++;
-                        } else {                             //If not, start it over at 1, increment the next one
-                            increment();
-                        }
+            increment();
 
-                        //Check if it worked or not
-                        if(!isSolved()){
-                            break outerloop;                   //Didn't work, try again.
-                        }else{
-                            solved = true;                     //Did work, exit while loop
-                            break outerloop;
-                        }
-                    }
-                }
+            //Check if it solved the entire puzzle or not
+            if(isSolved()){
+                System.out.println("Solution: ");
+                return true;                   //Didn't work, try again.
+            }else if(puzzle[lastX][lastY]==(width)){
+                System.out.println("This puzzle has no solution");
+                return false;
             }
-
-
-            //Check if that row/column/box is valid
-            //If not, keep incrementing until you can no longer increment
-            //increment the next empty to the left, and reset this one
         }
-
-
+        return true;
     }
 
+    /**
+     * Iterates through each row, checking for validity.
+     * If all are valid, then iterates through every column, checking for validity.
+     * If all are valid, then iterates through every box, checking for validity.
+     *
+     * @return True if no row, column, or box is invalid. False if any is invalid.
+     */
     private boolean isSolved(){
-        boolean rows;
-        boolean cols;
-        boolean boxs;
-
         for(int i = 0; i < puzzle.length; i++){
             if(!checker.checkRow(puzzle[i])){
                 return false;
@@ -124,8 +116,8 @@ public class Filler {
             }
         }
 
-        for(int row = 0; row < puzzle.length; row+=rSize){
-            for(int col = 0; col < puzzle[row].length; col+=cSize){
+        for(int row = 0; row < puzzle.length; row = (row + rSize)){
+            for(int col = 0; col < puzzle[row].length; col = (col + cSize)){
                 if(!checker.checkBox(puzzle, col, row, rSize, cSize)){
                     return false;
                 }
@@ -135,6 +127,14 @@ public class Filler {
         return true;
     }
 
+    /**
+     * Checks whether a space can be incremented.
+     * If the value of the space is less than the max possible value, then it can be incremented.
+     * The max possible value is the same as the width, and as such, width is used in lieu of max.
+     *
+     * @param val Check whether this value can be incremented
+     * @return True if it can be incremented, false if it cannot be incremented.
+     */
     private boolean canIncrement(int val){
         if(val < width){
             return true;
@@ -143,6 +143,15 @@ public class Filler {
         }
     }
 
+    /**
+     * Finds the first possible empty space that contains a value that can be incremented.
+     * If the space can be incremented, it increments the space.
+     * If the space cannot be incremented, and it is the final empty space in the puzzle, this method returns
+     * false.
+     * If the space cannot be incremented, and it is not the final empty space in the puzzle, it resets the space to 1.
+     *
+     * @return True if the space is successfully incremented. False if no space can be incremented.
+     */
     private boolean increment(){
         //Find the first that CAN be incremented, increment it
         for(int i = 0; i < puzzle.length; i++){
@@ -151,9 +160,12 @@ public class Filler {
                     if(canIncrement(puzzle[i][j])){
                         puzzle[i][j]++;
                         return true;
+                    }else if(i == lastX && j == lastY) {
+                        return false;
                     }else{
                         puzzle[i][j] = 1;
                     }
+
                 }
             }
         }
