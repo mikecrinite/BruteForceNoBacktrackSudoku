@@ -5,6 +5,7 @@ While most brute force solvers also utilize backtracking, this one does not.
 This solver identifies each '0' in the Sudoku puzzle ('0's represent blanks) and attempts to increment them one at a time
 until a solution is found or it is confirmed that no solution is possible.
 For example, if there are 4 blanks in a 2x2 puzzle, it will try to solve as follows:
+```
   1 1 1 1
   2 1 1 1
   3 1 1 1
@@ -24,6 +25,7 @@ For example, if there are 4 blanks in a 2x2 puzzle, it will try to solve as foll
   1 1 2 1
   2 1 2 1
   ... etc
+```
 THIS METHOD IS EXTREMELY SLOW! (The point of the assignment was to show how slow brute-forcing can be, despite its ease to code!)
 
 For example, in a 9x9 Sudoku puzzle with 50 blanks, it could potentially generate 5.15 x 10^47 assignments!
@@ -35,8 +37,7 @@ If you are looking for a pure brute-force solver, this one is available for your
 The /src folder contains the solver, and the root folder contains various Sudoku puzzles in .txt format
 
 -------------------------------------------------------------
-* The Input class was written by Jacob Caggese              *
-* The Filler class was written by me, Michael Crinite       *
-* The Checker class was written by Alexander Luongo         *
-* The SudokuDriver class was written by me, Michael Crinite *
--------------------------------------------------------------
+- The Input class was written by Jacob Caggese              *
+- The Filler class was written by me, Michael Crinite       
+- The Checker class was written by Alexander Luongo         
+- The SudokuDriver class was written by me, Michael Crinite 
