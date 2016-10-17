@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 /**
  * This class will attempt to fill a Sudoku puzzle with a solution.
  * 
