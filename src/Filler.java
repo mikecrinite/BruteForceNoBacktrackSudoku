@@ -218,17 +218,6 @@ public class Filler {
             {0, 0, 3, 2}};
         return multi;
     }
-    
-    /**
-     * Creates the smallest puzzle
-     * @return A solvable 2x2 puzzle
-     */
-     private static int[][] testPuzzle3(){
-        int[][] multi = new int[][]{
-            {1, 0},
-            {2, 0}};
-        return multi;
-    }
      
     /**
      * Creates a new puzzle with blanks
